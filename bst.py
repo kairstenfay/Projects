@@ -33,18 +33,16 @@ class Solution:
                 current_node.right = Node(data)
     
     def get_height(self):
-        if self.root is None:
-            print("your tree is short")
-            return 0
-        elif self.root.left:
-            return max(self._height(self.root.left), self._height(self.root.right)) + 1
-
-    def _height(self, root):
-        if self.root is None:
-            print("your tree has no more children")
+        if self.root is None: #self.root.left is None and self.root.right is None:
             return 0
         else:
             return max(self._height(self.root.left), self._height(self.root.right))
+
+    def _height(self, root):
+        if root is None: 
+            return 0
+        else:
+            return max(self._height(root.left), self._height(root.right)) + 1
     """
     def get_tree_height(self,root):
         if self.root is None:
@@ -86,11 +84,12 @@ myTree=Solution()
 #for i in range(T):
 myTree.insert(3)
 myTree.insert(5)
-myTree.insert(1)
-myTree.insert(12)
-myTree.insert(11)
 myTree.insert(2)
-myTree.insert(99)
+myTree.insert(1)
+myTree.insert(4)
+myTree.insert(6)
+myTree.insert(7)
+
 
 height=myTree.get_height()
 print(height)
