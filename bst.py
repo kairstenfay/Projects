@@ -16,7 +16,6 @@ class Solution:
     def insert(self, data):
         if self.root==None:
             self._set_root(data)
-
         else:
             self._insert(self.root,data)
 
@@ -31,38 +30,20 @@ class Solution:
                 self._insert(current_node.right, data)
             else:
                 current_node.right = Node(data)
-    
-    def get_height(self):
-        if self.root is None: #self.root.left is None and self.root.right is None:
-            return 0
+
+    def to_list(self):
+        queue = []
+        if self.root==None:
+            return queue
         else:
-            return max(self._height(self.root.left), self._height(self.root.right))
+            current_node = self.root
+            return self._sort(current_node.left)
 
-    def _height(self, root):
-        if root is None: 
-            return 0
-        else:
-            return max(self._height(root.left), self._height(root.right)) + 1
-    """
-    def get_tree_height(self,root):
-        if self.root is None:
-            return -1
+    def _sort(self, root): 
+        queue
+        
 
-        return max(self.get_tree_height(self.root.left), self.get_tree_height(self.root.right)) + 1
-    """
 
-    def find(self, data):
-        return self._find_node(self.root, data)
-
-    def _find_node(self, current_node, data):
-        if(current_node is None):
-            return False
-        elif(data == current_node.data):
-            return True
-        elif(data < current_node.data):
-            return self._find_node(current_node.left, data)
-        else:
-            return self._find_node(current_node.right, data)
 
         """
         if self.root:
@@ -78,6 +59,32 @@ class Solution:
         else:
             print("error")
             """
+    
+    def get_height(self):
+        if self.root is None: 
+            return 0
+        else:
+            return max(self._height(self.root.left), self._height(self.root.right))
+
+    def _height(self, root):
+        if root is None: 
+            return 0
+        else:
+            return max(self._height(root.left), self._height(root.right)) + 1
+
+    def find(self, data):
+        return self._find_node(self.root, data)
+
+    def _find_node(self, current_node, data):
+        if(current_node is None):
+            return False
+        elif(data == current_node.data):
+            return True
+        elif(data < current_node.data):
+            return self._find_node(current_node.left, data)
+        else:
+            return self._find_node(current_node.right, data)
+
 
 #T=int(input())
 myTree=Solution()
@@ -89,11 +96,12 @@ myTree.insert(1)
 myTree.insert(4)
 myTree.insert(6)
 myTree.insert(7)
+myTree.insert(8)
 
 
 height=myTree.get_height()
 print(height)
 
-#myTree.find(99)
-#myTree.find(901)
+myTree.find(1)
+myTree.find(99)
 
