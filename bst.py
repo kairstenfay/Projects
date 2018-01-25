@@ -14,7 +14,7 @@ class Solution:
         self.root = Node(data)
 
     def insert(self, data):
-        if self.root==None:
+        if self.root is None:
             self._set_root(data)
         else:
             self._insert(self.root,data)
@@ -37,13 +37,19 @@ class Solution:
         if self.root is None:
             return sorted_list
         else:
-            if self.root.left is not None:
-                #queue.append(self.root.data)
+            if self.root.left:
                 sorted_list.append(self._sort(self.root.left, sorted_list, queue))
+                queue.insert(len(queue), self.root.data)
+                sorted_list.append(queue[0])
+                queue.pop(0)
+                #self._set_root(queue[0])
+                #queue.pop(0)
+                #sorted_list.append(self.root.data)
 
-            if self.root.right is not None:
-                queue.append(self.root.data)
+            if self.root.right:
+                #queue.insert(len(queue), self.root.data)
                 sorted_list.append(self._sort(self.root.right, sorted_list, queue))
+                self._set_root(queue[0])
             return sorted_list, queue
             #current_node = self.root
             #previous_node = current_node
@@ -54,9 +60,10 @@ class Solution:
     def _sort(self, root, sorted_list, queue):
         if root.left is None:
             return root.data
-        if root.left is not None:
-            queue.append(root.data)
+        elif root.left:
+            queue.insert(len(queue), root.data)
             return self._sort(root.left, sorted_list, queue)
+
 
     # def _check_left(self, current_node):
     #     if current_node.left is not None:
