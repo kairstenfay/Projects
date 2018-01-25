@@ -33,33 +33,42 @@ class Solution:
 
     def to_list(self):
         queue = []
-        if self.root==None:
-            return queue
+        sorted_list = []
+        if self.root is None:
+            return sorted_list
         else:
-            current_node = self.root
-            return self._sort(current_node.left)
+            if self.root.left is not None:
+                #queue.append(self.root.data)
+                sorted_list.append(self._sort(self.root.left, sorted_list, queue))
 
-    def _sort(self, root): 
-        queue
-        
+            if self.root.right is not None:
+                queue.append(self.root.data)
+                sorted_list.append(self._sort(self.root.right, sorted_list, queue))
+            return sorted_list, queue
+            #current_node = self.root
+            #previous_node = current_node
+            #f current_node.left is not None:
+            #    current_node = current_node.left
+            #
+            #self._check_left(current_node.left)
+    def _sort(self, root, sorted_list, queue):
+        if root.left is None:
+            return root.data
+        if root.left is not None:
+            queue.append(root.data)
+            return self._sort(root.left, sorted_list, queue)
 
+    # def _check_left(self, current_node):
+    #     if current_node.left is not None:
+    #         previous_node = current_node
+    #         current_node = current_node.left
+    #     elif current_node.left is None:
+    #         return current_node
 
+    # def _check_right(self):
+    #     if current_node.right is not None:
+    #         pass 
 
-        """
-        if self.root:
-            left = right = 0
-            if self.root.left:
-                print("yes")
-                left = 1 + self.getHeight(self.root.left)
-            if self.root.right:
-                print("maybe")
-                right = 1 + self.getHeight(self.root.right)
-            height = max(left, right)
-            return height
-        else:
-            print("error")
-            """
-    
     def get_height(self):
         if self.root is None: 
             return 0
@@ -100,8 +109,10 @@ myTree.insert(8)
 
 
 height=myTree.get_height()
-print(height)
+#print(height)
 
 myTree.find(1)
 myTree.find(99)
+
+myTree.to_list()
 
