@@ -6,11 +6,16 @@ class Node:
     def get(self):
         return self.data
 
+
+"""
+TODO: Define helper methods outside of the Solution class (i.e. as functions)
+"""
+
 class Solution:
     def __init__(self):
         self.root=None
 
-    def _set_root(self, data):
+    def _set_root(self, data): #maybe don't do this. look at properties
         self.root = Node(data)
 
     def insert(self, data):
@@ -32,55 +37,27 @@ class Solution:
                 current_node.right = Node(data)
 
     def to_list(self):
-        queue = []
         sorted_list = []
-        if self.root is None:
+        current_node = self.root
+        if current_node is None:
             return sorted_list
-        else:
-            if self.root.left:
-                sorted_list.append(self._sort(self.root.left, sorted_list, queue))
-                queue.insert(len(queue), self.root.data)
-                sorted_list.append(queue[0])
-                queue.pop(0)
-                #self._set_root(queue[0])
-                #queue.pop(0)
-                #sorted_list.append(self.root.data)
-
-            if self.root.right:
-                #queue.insert(len(queue), self.root.data)
-                sorted_list.append(self._sort(self.root.right, sorted_list, queue))
-                self._set_root(queue[0])
-            return sorted_list, queue
-            #current_node = self.root
-            #previous_node = current_node
-            #f current_node.left is not None:
-            #    current_node = current_node.left
-            #
-            #self._check_left(current_node.left)
-    def _sort(self, root, sorted_list, queue):
-        if root.left is None:
-            return root.data
-        elif root.left:
-            queue.insert(len(queue), root.data)
-            return self._sort(root.left, sorted_list, queue)
+        self._sort(current_node, sorted_list)
+        return sorted_list
 
 
-    # def _check_left(self, current_node):
-    #     if current_node.left is not None:
-    #         previous_node = current_node
-    #         current_node = current_node.left
-    #     elif current_node.left is None:
-    #         return current_node
+    def _sort(self, current_node, sorted_list): 
+        if current_node.left:
+            #print("I looked to the left")
+            self._sort(current_node.left, sorted_list)
+        sorted_list.append(current_node.data)
 
-    # def _check_right(self):
-    #     if current_node.right is not None:
-    #         pass 
+        if current_node.right:
+            #print("I looked to the right")
+            self._sort(current_node.right, sorted_list)
+
 
     def get_height(self):
-        if self.root is None: 
-            return 0
-        else:
-            return max(self._height(self.root.left), self._height(self.root.right))
+        return self._height(self.root)#.left), self._height(self.root.right))
 
     def _height(self, root):
         if root is None: 
@@ -122,4 +99,3 @@ myTree.find(1)
 myTree.find(99)
 
 myTree.to_list()
-
