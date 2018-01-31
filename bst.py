@@ -78,6 +78,40 @@ class Solution:
         else:
             return self._find_node(current_node.right, data)
 
+    def balance(self):
+        current_node = self.root
+        self._rotate(current_node)
+        print(self._get_balance_factor(current_node))
+        print(current_node.data)
+        print(current_node.left.data)
+        print(current_node.right.data)
+        return
+
+    def _get_balance_factor(self, current_node):
+        if root is None:
+            return 0
+        else:
+            return -1 * self._height(current_node.left) + self._height(current_node.right)
+
+    def _rotate(self, current_node):
+        if current_node is None:
+            balance_factor=0
+        else:
+            balance_factor = -1 * self._height(current_node.left) + self._height(current_node.right)
+
+        if balance_factor < 1: # left heavy
+            saved_node = current_node
+            current_node = current_node.left ## turn pointer down to the left
+            current_node.right = saved_node ## previous parent
+            return 
+        if balance_factor > 1: # right heavy
+            saved_node = current_node
+            current_node = current_node.right
+            current_node.left = saved_node
+            return 
+
+
+
 
 #T=int(input())
 myTree=Solution()
@@ -99,3 +133,4 @@ myTree.find(1)
 myTree.find(99)
 
 myTree.to_list()
+myTree.balance()
